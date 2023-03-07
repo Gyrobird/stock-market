@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set_style('whitegrid')
 plt.style.use("fivethirtyeight")
-%matplotlib inline
+#%matplotlib inline
 
 # For reading stock data from yahoo
 from pandas_datareader.data import DataReader

@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-#matplotlib inline
+%matplotlib inline
 from matplotlib.pylab import rcParams
 rcParams['figure.figsize']=20,10
 from keras.models import Sequential

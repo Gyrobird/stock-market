@@ -1,0 +1,20 @@
+# Import packages
+import yfinance as yf
+import pandas as pd
+
+# Set the start and end date
+start_date = '1990-01-01'
+end_date = '2021-07-12'
+
+# Define the ticker list
+tickers_list = ['AAPL', 'IBM', 'MSFT', 'WMT']
+
+# Create placeholder for data
+data = pd.DataFrame(columns=tickers_list)
+
+# Fetch the data
+for ticker in tickers_list:
+    data[ticker] = yf.download(ticker,  start_date, end_date)['Adj Close']
+    
+# Print first 5 rows of the data
+print(data.head())  #this is to show thw table simple data.head dosent works here

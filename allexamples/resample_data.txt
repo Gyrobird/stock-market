@@ -1,0 +1,35 @@
+During strategy modelling, you might be required to work with a custom frequency of stock market data such as 15 minutes or 1 hour or even 1 month.
+
+If you have minute level data, then you can easily construct the 15 minutes, 1 hour or daily candles by resampling them. Thus, you don't have to buy them separately.
+
+In this case, you can use the pandas resample method to convert the stock market data to the frequency of your choice. The implementation of these is shown below where a 1-minute frequency data is converted to 10-minute frequency data.
+
+The first step is to define the dictionary with the conversion logic. For example, to get the open value the first value will be used, to get the high value the maximum value will be used and so on.
+
+The name Open, High, Low, Close and Volume should match the column names in your dataframe.
+
+#exemplar code
+ohlcv_dict = {
+ 'Open': 'first',
+ 'High': 'max',
+ 'Low': 'min',
+ 'Close': 'last',
+ 'Volume': 'sum'
+}
+
+#Import package & get the data
+import yfinance as yf
+intraday_data = yf.download(tickers="MSFT",period="5d",interval="1m",auto_adjust=True)
+
+# Define the resampling logic
+ohlcv_dict = {
+     'Open': 'first',
+     'High': 'max',
+     'Low': 'min',
+     'Close': 'last',
+     'Volume': 'sum'
+}
+
+# Resample the data
+intraday_data_10 = intraday_data.resample('10T').agg(ohlcv_dict)
+intraday_data_10.head()

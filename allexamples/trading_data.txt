@@ -1,0 +1,49 @@
+#setting up a ticker fior the trade and the price 
+# Import yfinance
+import yfinance as yf
+
+# Set the ticker as MSFT
+msft = yf.Ticker("MSFT")
+
+
+***key ratios for the trading***
+
+# get price to book
+pb = msft.info['priceToBook']
+pe = msft.info['regularMarketPrice']/msft.info['trailingEps']
+print('Price to Book Ratio is: %.2f' % pb)
+print('Price to Earnings Ratio is: %.2f' % pe)
+
+**plotiing the revenue and the earnings**
+
+# show revenues
+revenue = msft.financials.loc['Total Revenue']
+plt.bar(revenue.index, revenue.values)
+plt.ylabel("Total Revenues")
+plt.show()
+
+
+**** geting the profile for the company***
+
+
+# Define the ticker list
+tickers_list = ['AAPL', 'AMZN', 'MSFT', 'WMT']
+
+# Import pandas and create a placeholder for the data
+import pandas as pd
+data = pd.DataFrame(columns=tickers_list)
+
+# Fetch the data
+import yfinance as yf
+for ticker in tickers_list:
+     data[ticker] = yf.download(ticker, period='5y',)['Adj Close']
+        
+# Compute the returns of individual stocks and then compute the daily mean returns.
+# The mean return is the daily portfolio returns with the above four stocks.
+data = data.pct_change().dropna().mean(axis=1)
+
+# Import Pyfolio
+import pyfolio as pf
+
+# Get the full tear sheet
+pf.create_simple_tear_sheet(data)

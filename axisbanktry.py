@@ -61,8 +61,8 @@ lstm_model.save("saved_model.h5")
 train_data=new_dataset[:5000]
 valid_data=new_dataset[5000:]
 valid_data['Predictions']=predicted_closing_price
-#plt.plot(train_data["Close"])
-#plt.plot(valid_data[['Close',"Predictions"]])
+plt.plot(train_data["Close"])
+plt.plot(valid_data[['Close',"Predictions"]])
 
 
 #new adiitionss

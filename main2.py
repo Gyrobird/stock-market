@@ -11,12 +11,21 @@ from sklearn.preprocessing import MinMaxScaler
 rcParams['figure.figsize'] = 20, 10
 
 df = yf.download('AAPL', start='2021-01-01', end='2021-12-31')
+df.drop('Date', axis=1, inplace=True)
+new_dataset = pd.DataFrame(index=range(len(df)), columns=['Close'])
+new_dataset['Close'] = df['Close'].values
+
+
+
+new_dataset = pd.DataFrame(index=range(len(df)), columns=['Close'])
+new_dataset['Close'] = df['Close'].values
+
 df["Date"] = df.index # create a new column "date" that contains the index values (which are dates)
 df["Date"]=pd.to_datetime(df.Date,format="%Y-%m-%d")
 df.index=df['Date']
 new_dataset = pd.DataFrame(index=range(len(df)), columns=['Close'])
 new_dataset['Close'] = df['Close'].values
-new_dataset.drop('Date', axis=1, inplace=True)
+
 
 scaler = MinMaxScaler(feature_range=(0, 1))
 final_dataset = scaler.fit_transform(new_dataset.values)
